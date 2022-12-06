@@ -51,7 +51,6 @@ def mainPart2():
             commonChar = findCommonChar(groupLines)
             totalPriority += calcPriority(commonChar)
     print(totalPriority)
-    pass
 
 if __name__ == "__main__":
     mainPart2()
