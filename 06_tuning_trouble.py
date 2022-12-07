@@ -3,7 +3,7 @@ def get_line(file_name):
         for line in file:
             return line
     raise Exception('File is empty')
-    
+
 def find_first_marker(line, marker_len):
     for i in range(marker_len, len(line) + 1):
         potential_marker = line[i - marker_len : i]
