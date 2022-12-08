@@ -5,19 +5,19 @@ def main():
             lines.append(line[:-1])
 
     best = 0
-    for x in range(0, len(lines[0])):
-        for y in range(0, len(lines)):
-            height = int(lines[y][x])
+    for x, _ in enumerate(lines[0]):
+        for y, line in enumerate(lines):
+            height = int(line[x])
 
             left = 0
             for left in range(x - 1, -1, -1):
-                if int(lines[y][left]) >= height:
+                if int(line[left]) >= height:
                     break
             left_score = x - left
 
-            # right = 0
+            right = 0
             for right in range(x + 1, len(lines[0])):
-                if int(lines[y][right]) >= height:
+                if int(line[right]) >= height:
                     break
             right_score = right - x
 
@@ -28,7 +28,7 @@ def main():
             top_score = y - top
 
             bottom = 0
-            for bottom in range(y + 1, len(lines), 1):
+            for bottom in range(y + 1, len(lines)):
                 if int(lines[bottom][x]) >= height:
                     break
             bottom_score = bottom - y
@@ -37,7 +37,7 @@ def main():
             best = max(best, score)
 
     print(best)
-        
+
 
 if __name__ == "__main__":
     main()
