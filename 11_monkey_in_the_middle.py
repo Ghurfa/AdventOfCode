@@ -6,16 +6,15 @@ class Monkey:
         self.true_recv = true_recv
         self.false_recv = false_recv
         self.inspect_count = 0
-    
+
     def handle_item(self, monkeys):
         if len(self.items) == 0:
             return False
-        
+
         item = self.items[0]
         self.items = self.items[1:]
         item = self.operation(item)
-        
-        # item = int(item / 3)
+
         item %= 223092870
 
         self.inspect_count += 1
@@ -48,14 +47,10 @@ def main():
         for monkey in monkeys:
             while monkey.handle_item(monkeys):
                 pass
-            
-        active_count = sum((1 if len(x.items) > 0 else 0) for x in monkeys)
-        pass
 
     counts = [m.inspect_count for m in monkeys]
     counts.sort()
     print(counts[-2] * counts[-1])
-
 
 if __name__ == "__main__":
     main()

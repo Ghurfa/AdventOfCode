@@ -15,7 +15,7 @@ def main():
             curr_pixel_y = int((cycle_num - 1)/40)
             if x - 1 <= curr_pixel_x <= x + 1:
                 screen[curr_pixel_y][curr_pixel_x] = True
-            
+
             parts = [l.strip() for l in line.split(' ')]
             if parts[0] == 'noop':
                 cycle_num = cycle_num + 1
@@ -34,7 +34,7 @@ def main():
                 x += int(parts[1])
             else:
                 raise Exception()
-    
+
     for line in screen:
         for pixel in line:
             if pixel:
@@ -43,9 +43,6 @@ def main():
                 print(' ', end='')
         print()
     print(total)
-            
-
-
 
 if __name__ == "__main__":
     main()

@@ -32,14 +32,15 @@ def main():
         direction = parts[0]
         steps = int(parts[1])
         for i in range(0, steps):
+            head = positions[0]
             if direction == 'U':
-                positions[0] = (positions[0][0], positions[0][1] + 1)
+                positions[0] = (head[0], head[1] + 1)
             elif direction == 'D':
-                positions[0] = (positions[0][0], positions[0][1] - 1)
-            elif direction == 'L':  
-                positions[0] = (positions[0][0] - 1, positions[0][1])
+                positions[0] = (head[0], head[1] - 1)
+            elif direction == 'L':
+                positions[0] = (head[0] - 1, head[1])
             elif direction == 'R':
-                positions[0] = (positions[0][0] + 1, positions[0][1])
+                positions[0] = (head[0] + 1, head[1])
             for i, _ in enumerate(positions[1:], 1):
                 positions[i] = new_tail_pos(positions[i - 1], positions[i])
             tail_positions.add(positions[-1])
