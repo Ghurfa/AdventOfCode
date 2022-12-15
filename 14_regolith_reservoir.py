@@ -35,8 +35,8 @@ def main():
 
     count = 0
     spawn_pos = (500, 0)
-    exit = False
-    while not exit:
+    done = False
+    while not done:
         grain_pos = spawn_pos
         while True:
             if grain_pos[1] >= max_y + 1:
@@ -51,7 +51,7 @@ def main():
             else:
                 grid[grain_pos[0] - min_x][grain_pos[1]] = 1
                 if grain_pos == spawn_pos:
-                    exit = True
+                    done = True
                 break
         count += 1
     print(count)

@@ -4,14 +4,6 @@ class Point:
     def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
-    
-    def add(self, x, y):
-        return Point(self.x + x, self.y + y)
-
-    def euclid(self, other):
-        x_diff = self.x - other.x
-        y_diff = self.y - other.y
-        return int(Math.sqrt(x_diff * x_diff + y_diff * y_diff))
 
     def manhattan(self, other):
         x_diff = self.x - other.x
@@ -21,9 +13,6 @@ class Point:
 def main():
     # target_line_num = 10
     dims = 4000000
-    line_start = 0
-    # target_line = dict()
-    grid = [[] for x in range(0, dims)]
     sensors = []
     beacons = []
     with open("15input.txt", encoding='UTF-8') as file:
@@ -40,36 +29,39 @@ def main():
             beacon = Point(beacon_x, beacon_y)
             beacons.append(beacon)
 
-    for target_line_num in range(0, dims):
+    y = 0
+    sensor_dists = [sensor.manhattan(beacons[s]) for s, sensor in enumerate(sensors)]
+    while y <= dims:
         ranges = []
         for s, sensor in enumerate(sensors):
-            beacon = beacons[s]
-            dist = sensor.manhattan(beacon)
-            width = (dist - abs(sensor.y - target_line_num)) * 2 + 1
-            if sensor.y == 0:
-                pass
+            dist = sensor_dists[s]
+            width = (dist - abs(sensor.y - y)) * 2 + 1
 
             if width > 0:
                 lower_x = int(sensor.x - (width - 1)/2)
                 upper_x = int(sensor.x + (width - 1)/2)
-                ranges.append((max(lower_x, 0), min(upper_x, dims)))
-            if sensor.x == target_line_num:
+                ranges.append((lower_x, upper_x))
+            if sensor.x == y:
                 ranges.append((sensor.x, sensor.x))
         for beacon in beacons:
-            if beacon.x == target_line_num:
+            if beacon.x == y:
                 ranges.append((beacon.x, beacon.x))
-        key_func = lambda x: x[0] * dims + x[1]
-        ranges.sort(key=key_func);
-        right = ranges[0][1]
-        for r, ran in enumerate(ranges[1:], 1):
-            if right < ran[0] - 1:
+        ranges.sort(key=lambda x: x[0] * dims + x[1])
+        right = -1
+
+        ranges.insert(0, (-1, -1))
+
+        min_overlap = dims
+        for ran in ranges[1:]:
+            if right < (ran[0] - 1):
                 x = right + 1
-                y = target_line_num
                 print(x * 4000000 + y)
                 break
-            else:
-                right = max(right, ran[1])
-    raise Exception('asd')
+            overlap = right - ran[0] + 1
+            min_overlap = min(min_overlap, overlap)
+            right = max(right, ran[1])
+        y += int(Math.floor(min_overlap/2)) + 1
+    print('done')
 
 if __name__ == "__main__":
     main()
