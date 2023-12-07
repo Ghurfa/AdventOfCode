@@ -36,7 +36,7 @@ def compare_card(card: str) -> int:
         'A': 0,
         'K': 1,
         'Q': 2,
-        'J': 13,
+        'J': 13,    # Change to 3 for part 1
         'T': 4,
         '9': 5,
         '8': 6,
@@ -63,7 +63,7 @@ def main():
     # Part 2 version
     hands.sort(key=lambda x: (get_best_type(x[0]), compare_card(x[0][0]), compare_card(x[0][1]), compare_card(x[0][2]), compare_card(x[0][3]), compare_card(x[0][4])))
     
-    winnings = [(len(hands) - i) * hands[i][1] for i in range(0, len(hands))]
+    winnings = [(len(hands) - i) * hand[1] for i, hand in enumerate(hands)]
     print(sum(winnings))
 
 if __name__ == "__main__":
