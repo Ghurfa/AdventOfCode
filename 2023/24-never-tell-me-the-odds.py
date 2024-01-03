@@ -55,23 +55,26 @@ def part_2_stuff(stone_1, stone_2):
     if vx1 == vx2 and vy1 == vy2:
         dx = x1 - x2
         dy = y1 - y2
-        pass
+        return
+
+    vxr = 174 + 27
+    vyr = 213 - 11
 
     # Step 2: Take any two hailstones with non-parallel trajectories. Let t1 be the time at which the colliding rock collides with hailstone 1,
     # and let t2 be the time at which the rock collides with hailstone 2. We come up with the system of equations below, which reduces through
     # some algebra to the linear equations [a * t1 + b * t2 = c] and [d * t1 + e * t2 = f] where a through f are calculated in the variables below
     
-    # (x1 + vx1 * t1) + 201 * (t2 - t1) = x2 + vx2 * t2
-    # (y1 + vy1 * t1) + 202 * (t2 - t1) = y2 + vy2 * t2
+    # (x1 + vx1 * t1) + vxr * (t2 - t1) = x2 + vx2 * t2
+    # (y1 + vy1 * t1) + vyr * (t2 - t1) = y2 + vy2 * t2
 
-    a = vx1 - (174 + 27)
-    b = (174 + 27) - vx2
+    a = vx1 - vxr
+    b = vxr - vx2
     c = x2 - x1
-    d = vy1 - (213 - 11)
-    e = (213 - 11) - vy2
+    d = vy1 - vyr
+    e = vyr - vy2
     f = y2 - y1
 
-    # Plugging the numbers above into a matrix calculator and finding the row-reduced echelon form lets results with values for t1 and t2
+    # Plugging the numbers above into a matrix calculator and finding the row-reduced echelon form results in values for t1 and t2
 
     t1 = 711444906273
     t2 = 943556327678
@@ -91,8 +94,8 @@ def part_2_stuff(stone_1, stone_2):
     x1_at_ix = x1 + t1 * vx1
     y1_at_ix = y1 + t1 * vy1
     z1_at_ix = z1 + t1 * vz1
-    x0 = x1_at_ix - 201 * t1
-    y0 = y1_at_ix - 202 * t1
+    x0 = x1_at_ix - vxr * t1
+    y0 = y1_at_ix - vyr * t1
     z0 = z1_at_ix - vzr * t1
     print(x0 + y0 + z0)
 
